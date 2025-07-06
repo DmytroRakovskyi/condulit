@@ -1,0 +1,62 @@
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Playwright test results and cache
+test-results/
+playwright-report/
+.playwright/
+
+# TypeScript
+dist/
+out/
+build/
+*.tsbuildinfo
+
+# Environment files
+.env
+.env.local
+.env.*.local
+
+# VSCode
+.vscode/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Coverage
+coverage/
+
+# Logs
+logs/
+*.log
+
+# IDEs
+.idea/
+*.iml
+
+# Playwright specific generated files
+trace.zip
+tsconfig.json
+
+# Old tests
+test_old/
+test_old
+# code_training/
+# code_training
+
+# Prettier 
+.prettierrc
+.prettierrc.json
+.prettierrc.js
+.prettierrc.yaml
+.prettierignore
+
+# Playwright
+/playwright-report/
+/blob-report/
+/playwright/.cache/

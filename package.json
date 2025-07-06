@@ -1,0 +1,26 @@
+{
+  "name": "condulit",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000c\u0000o\u0000n\u0000d\u0000u\u0000l\u0000i\u0000t\u0000-\u0000d\u0000o\u0000j\u0000o\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "precommit": "lint-staged"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": "prettier --write"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@faker-js/faker": "^9.9.0",
+    "@playwright/test": "^1.53.2",
+    "@types/node": "^24.0.10",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.1.2",
+    "prettier": "^3.6.2"
+  }
+}

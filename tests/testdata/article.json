@@ -1,0 +1,5 @@
+{
+  "title": "Understanding User Authentication",
+  "about": "An overview of how user authentication works and why it matters.",
+  "text": "User authentication is the process of verifying the identity of a user trying to access a system. It typically involves providing a username and password. Proper authentication ensures that only authorized users can access sensitive information, protecting both user data and the system itself. With increasing security threats, advanced methods like multi-factor authentication are becoming essential to enhance protection."
+}
