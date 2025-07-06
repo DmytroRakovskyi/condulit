@@ -1,7 +1,6 @@
-import { expect, Locator, Page, test } from '@playwright/test';
-
-export class RegistrationPage {
-  readonly page: Page;
+import { expect, Locator, Page } from '@playwright/test';
+import { BasePage } from '../pages/BasePage';
+export class RegistrationPage extends BasePage {
   readonly userNameInput: Locator;
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
@@ -11,7 +10,7 @@ export class RegistrationPage {
   readonly errorPanel: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.userNameInput = page.locator("input[placeholder*='User']");
     this.emailInput = page.locator("input[placeholder*='Email']");
     this.passwordInput = page.locator("input[placeholder*='Password']");

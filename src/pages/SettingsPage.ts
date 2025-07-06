@@ -1,8 +1,8 @@
 import { Page, Locator } from '@playwright/test';
 import { UserData } from '../types/user';
+import { BasePage } from '../pages/BasePage';
 
-export class SettingsPage {
-  readonly page: Page;
+export class SettingsPage extends BasePage {
   readonly urlPictureInput: Locator;
   readonly userNameInput: Locator;
   readonly bioInput: Locator;
@@ -11,7 +11,7 @@ export class SettingsPage {
   readonly updateSettingsButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.urlPictureInput = this.page.getByPlaceholder('URL');
     this.userNameInput = this.page.getByPlaceholder('Your username');
     this.bioInput = this.page.getByPlaceholder('Short bio');

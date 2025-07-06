@@ -14,7 +14,7 @@ test.describe('Settings page', { tag: ['@smoke-wb', '@settings-wb'] }, () => {
     await expect(page).toHaveURL('/');
   });
 
-  //test fails due to the issue with the settings page
+  //test fails due to the issue with the settings page!!!
   test('settings can be updated', { tag: ['@smoke-wb', '@settings-wb'] }, async ({ page }) => {
     const settingsPage = new SettingsPage(page);
     const homePage = new HomePage(page);

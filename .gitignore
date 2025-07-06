@@ -60,3 +60,7 @@ test_old
 /playwright-report/
 /blob-report/
 /playwright/.cache/
+
+
+# Eslist
+.eslintignore

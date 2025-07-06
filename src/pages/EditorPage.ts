@@ -1,7 +1,7 @@
 import { Locator, Page, expect } from '@playwright/test';
+import { BasePage } from '../pages/BasePage';
 
-export class EditorPage {
-  readonly page: Page;
+export class EditorPage extends BasePage {
   readonly articleTitle: Locator;
   readonly articleAbout: Locator;
   readonly articleTextArea: Locator;
@@ -11,7 +11,7 @@ export class EditorPage {
   readonly publishButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.articleTitle = page.locator("input[placeholder*='Title']");
     this.articleAbout = page.locator("input[placeholder*='about']");
     this.articleTextArea = page.locator("textarea[placeholder*='your']");

@@ -1,4 +1,4 @@
-import { test, expect, Locator, Page } from '@playwright/test';
+import { test, expect } from '@playwright/test';
 import { dataGenerator } from '../../src/utils/data-generator';
 import article from '../testdata/article.json';
 

@@ -1,7 +1,7 @@
-import { Page, Locator, test } from '@playwright/test';
+import { Page, Locator } from '@playwright/test';
+import { BasePage } from '../pages/BasePage';
 
-export class HomePage {
-  readonly page: Page;
+export class HomePage extends BasePage {
   readonly myFeedButton: Locator;
   readonly globalFeedButton: Locator;
   readonly tagList: Locator;
@@ -10,7 +10,7 @@ export class HomePage {
   readonly settingsButton: Locator;
 
   constructor(page: Page) {
-    this.page = page;
+    super(page);
     this.settingsButton = page.locator("a[href*='settings']");
     this.myFeedButton = page.locator("a[href*='my-feed']");
     this.globalFeedButton = page.locator("//a[contains(text(), 'Global Feed')]");
