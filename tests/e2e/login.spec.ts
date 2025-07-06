@@ -29,7 +29,7 @@ test.describe('login functionality', { tag: ['@smoke-wb', '@login-wb'] }, () => 
   test('WB-3 valid user login', { tag: ['@smoke-wb', '@login-wb'] }, async ({ page }) => {
     const loginPage = new LoginPage(page);
     loginPage.userLogin(userEmail, userPassword);
-    await expect(loginPage.errorPanel).not.toBeVisible();
+    await expect(loginPage.errorPanel).toBeHidden();
     await expect(loginPage.userProfileButton).toContainText(registeredUser.uniqueUser);
     await expect(page).toHaveURL('/');
   });
@@ -38,7 +38,7 @@ test.describe('login functionality', { tag: ['@smoke-wb', '@login-wb'] }, () => 
     const loginPage = new LoginPage(page);
     loginPage.userLogin(invalidEmail, invalidPassword);
     await expect(loginPage.errorPanel).toBeVisible();
-    await expect(loginPage.userProfileButton).not.toBeVisible();
+    await expect(loginPage.userProfileButton).toBeHidden();
     await expect(page).toHaveURL(`/login`);
   });
 });

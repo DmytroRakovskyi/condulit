@@ -23,7 +23,7 @@ test.describe('register functionality', { tag: ['@smoke-wb', '@registration-wb']
       );
       await registerPage.userRegistration(uniqueUser, userEmail, userPassword);
       const response = await respPromise;
-      await expect(registerPage.errorPanel).not.toBeVisible();
+      await expect(registerPage.errorPanel).toBeHidden();
       await expect(page).toHaveURL('/');
       expect(response.status()).toBe(200);
       await expect(registerPage.userProfileButton).toBeVisible();

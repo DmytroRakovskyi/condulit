@@ -36,25 +36,16 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
-    },
-
-    {
       name: 'e2e',
       use: { ...devices['Desktop Chrome'] },
-      testDir: '../tests/e2e',
+      testDir: 'tests/e2e',
       testMatch: '**\/*.@(spec|test|e2e).?(c|m)[jt]s?(x)',
     },
     {
       name: 'api',
-      testDir: '.',
-      testMatch: '**\/*.@(spec|test|api).?(c|m)[jt]s?(x)',
-    },
-
-    {
-      name: 'webkit',
-      use: { ...devices['Desktop Safari'] },
+      use: { ...devices['Desktop Chrome'] },
+      testDir: 'tests/api',
+      testMatch: '**\/*.@(api).?(c|m)[jt]s?(x)',
     },
 
     /* Test against mobile viewports. */
