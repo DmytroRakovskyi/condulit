@@ -9,6 +9,7 @@ export class SettingsPage extends BasePage {
   readonly emailInput: Locator;
   readonly passwordInput: Locator;
   readonly updateSettingsButton: Locator;
+  readonly logOutButton: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -18,11 +19,19 @@ export class SettingsPage extends BasePage {
     this.emailInput = this.page.getByPlaceholder('Email');
     this.passwordInput = this.page.getByPlaceholder('Password');
     this.updateSettingsButton = this.page.getByRole('button', { name: 'Update Settings' });
+    this.logOutButton = page.locator("button[class*='danger']");
   }
 
   async updateSettings(userData: UserData) {
     for (const key of Object.keys(userData) as (keyof UserData)[]) {
       await this.page.locator(`[placeholder*="${key}"]`).fill(userData[key] ?? '');
     }
+  }
+  private async goToSettingsPage() {
+    await this.page.goto(`/settings`);
+  }
+  async userLogout() {
+    await this.goToSettingsPage();
+    await this.logOutButton.click();
   }
 }

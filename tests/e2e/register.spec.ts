@@ -1,49 +1,46 @@
-import { test, expect, Page } from '@playwright/test';
+import { expect, Page } from '@playwright/test';
+import { test } from '../e2e_fixtures/baseFixture';
 import { dataGenerator, invalidData } from '../../src/utils/data-generator';
-import { RegistrationPage } from '../../src/pages/RegisrationPage';
 
 const { uniqueUser, userEmail, userPassword } = dataGenerator();
 const { invalidUser, invalidEmail, invalidPassword } = invalidData;
 const responsePromise = (page: Page, response: string) => page.waitForResponse(response);
 
-test.beforeEach(async ({ page }) => {
-  const registerPage = new RegistrationPage(page);
-  await registerPage.goToRegisterPage();
+test.beforeEach(async ({ page, registrationPage }) => {
+  await registrationPage.goToRegisterPage();
 });
 
 test.describe('register functionality', { tag: ['@smoke-wb', '@registration-wb'] }, () => {
   test(
     'WB-1 valid user registration',
     { tag: ['@smoke-wb', '@registration-wb'] },
-    async ({ page }) => {
-      const registerPage = new RegistrationPage(page);
+    async ({ page, registrationPage }) => {
       const respPromise: any = responsePromise(
         page,
         'https://conduit-api.learnwebdriverio.com/api/users',
       );
-      await registerPage.userRegistration(uniqueUser, userEmail, userPassword);
+      await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
       const response = await respPromise;
-      await expect(registerPage.errorPanel).toBeHidden();
+      await expect(registrationPage.errorPanel).toBeHidden();
       await expect(page).toHaveURL('/');
       expect(response.status()).toBe(200);
-      await expect(registerPage.userProfileButton).toBeVisible();
+      await expect(registrationPage.userProfileButton).toBeVisible();
     },
   );
 
   test(
     'WB-2 invalid user registration attempt',
     { tag: ['@smoke-wb', '@registration-wb'] },
-    async ({ page }) => {
-      const registerPage = new RegistrationPage(page);
+    async ({ page, registrationPage }) => {
       const respPromise: any = responsePromise(
         page,
         'https://conduit-api.learnwebdriverio.com/api/users',
       );
-      await registerPage.userRegistration(invalidUser, invalidEmail, invalidPassword);
+      await registrationPage.userRegistration(invalidUser, invalidEmail, invalidPassword);
       const response: any = await respPromise;
       expect(response.status()).not.toBe(200);
-      await expect(registerPage.errorPanel.getByText('username is invalid')).toBeVisible();
-      await expect(registerPage.errorPanel.getByText('email is invalid')).toBeVisible();
+      await expect(registrationPage.errorPanel.getByText('username is invalid')).toBeVisible();
+      await expect(registrationPage.errorPanel.getByText('email is invalid')).toBeVisible();
       await expect(page).toHaveURL(`/register`);
     },
   );
