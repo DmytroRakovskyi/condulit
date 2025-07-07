@@ -10,20 +10,17 @@ const { uniqueUser, userEmail, userPassword } = registeredUser;
 
 // test.beforeAll(async ({ registrationPage }) => {});
 
-test.beforeEach(async ({ page, registrationPage, loginPage, settingsPage }) => {
-  await registrationPage.goToRegisterPage();
-  await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
-  await expect(page).toHaveURL('/');
-  await settingsPage.userLogout();
-  await loginPage.goToLoginPage();
-});
-
 test.describe('login functionality', { tag: ['@smoke-wb', '@login-wb'] }, () => {
   test(
     'WB-3 valid user login',
     { tag: ['@smoke-wb', '@login-wb'] },
-    async ({ page, loginPage }) => {
-      loginPage.userLogin(userEmail, userPassword);
+    async ({ page, registrationPage, loginPage, settingsPage }) => {
+      await registrationPage.goToRegisterPage();
+      await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
+      await expect(page).toHaveURL('/');
+      await settingsPage.userLogout();
+      await loginPage.goToLoginPage();
+      await loginPage.userLogin(userEmail, userPassword);
       await expect(loginPage.errorPanel).toBeHidden();
       await expect(loginPage.userProfileButton).toContainText(registeredUser.uniqueUser);
       await expect(page).toHaveURL('/');
@@ -34,7 +31,8 @@ test.describe('login functionality', { tag: ['@smoke-wb', '@login-wb'] }, () => 
     'WB-4, invalid user login attempt',
     { tag: ['@smoke-wb', '@login-wb'] },
     async ({ page, loginPage }) => {
-      loginPage.userLogin(invalidEmail, invalidPassword);
+      await loginPage.goToLoginPage();
+      await loginPage.userLogin(invalidEmail, invalidPassword);
       await expect(loginPage.errorPanel).toBeVisible();
       await expect(loginPage.userProfileButton).toBeHidden();
       await expect(page).toHaveURL(`/login`);
