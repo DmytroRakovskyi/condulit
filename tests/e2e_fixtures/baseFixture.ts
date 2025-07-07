@@ -1,4 +1,6 @@
-import { test as base } from '@playwright/test';
+import { test as base, expect } from '@playwright/test';
+import fs from 'fs';
+import { dataGenerator } from '../../src/utils/data-generator';
 import { RegistrationPage } from '../../src/pages/RegisrationPage';
 import { LoginPage } from '../../src/pages/LoginPage';
 import { EditorPage } from '../../src/pages/EditorPage';
@@ -34,5 +36,22 @@ export const test = base.extend<BaseFixtures>({
   settingsPage: async ({ page }, use) => {
     const settingsPage = new SettingsPage(page);
     await use(settingsPage);
+  },
+
+  storageState: async ({ browser }, use) => {
+    const storageStatePath: string = '.auth/storage-state.json';
+    const isExist: boolean = fs.existsSync(storageStatePath);
+
+    if (!isExist) {
+      const page = await browser.newPage();
+      const { uniqueUser, userEmail, userPassword } = dataGenerator();
+      const registrationPage = new RegistrationPage(page);
+      await registrationPage.goToRegisterPage('https://demo.learnwebdriverio.com/register');
+      await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
+
+      await page.context().storageState({ path: storageStatePath as string });
+      await page.close();
+    }
+    await use(storageStatePath);
   },
 });

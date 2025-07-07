@@ -18,8 +18,8 @@ export class RegistrationPage extends BasePage {
     this.errorPanel = page.locator('.error-messages');
   }
 
-  async goToRegisterPage() {
-    await this.page.goto(`/register`);
+  async goToRegisterPage(url: string = '/register') {
+    await this.page.goto(url);
   }
 
   async userRegistration(userName: string, userEmail: string, userPassword: string) {
