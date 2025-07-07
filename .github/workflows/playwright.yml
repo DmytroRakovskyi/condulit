@@ -1,9 +1,20 @@
 name: Playwright Tests
 on:
   push:
-    branches: [main, master]
+    branches: [master]
   pull_request:
-    branches: [main, master]
+    branches: [master]
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+    inputs:
+      test_type:
+        type: choice
+        description: 'Select the type of tests to run'
+        options:
+          - 'e2e'
+          - 'api'
+
 jobs:
   test:
     timeout-minutes: 60
@@ -24,4 +35,4 @@ jobs:
         with:
           name: playwright-report
           path: playwright-report/
-          retention-days: 30
+          retention-days: 1
