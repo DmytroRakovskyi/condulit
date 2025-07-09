@@ -6,6 +6,10 @@ on:
     branches: [master]
   workflow_dispatch:
     inputs:
+      workers_count:
+        description: 'Please provide number of workers for tests execution'
+        type: number
+        default: 3
       test_type:
         type: choice
         description: 'Select the type of tests to run'
