@@ -14,6 +14,7 @@ async function globalSetup() {
   await expect(registrationPage.userProfileButton).toBeVisible();
 
   const storageState = await page.context().storageState();
+  fs.mkdirSync('.auth', { recursive: true });
   fs.writeFileSync('.auth/storage-state.json', JSON.stringify(storageState, null, 2));
 
   await browser.close();
