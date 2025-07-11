@@ -16,7 +16,7 @@ test.describe('home page', { tag: ['@smoke-wb', '@main'] }, () => {
       const list: Locator = await homePage.getByList('demo');
       await expect(list).toBeVisible();
       await homePage.articlePreview.click();
-      await expect(tag).toBeVisible();
+      await expect(tag.first()).toBeVisible();
     },
   );
 });
