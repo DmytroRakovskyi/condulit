@@ -1,4 +1,4 @@
-import { expect, chromium, BrowserContext } from '@playwright/test';
+import { expect } from '@playwright/test';
 import { test } from '../e2e_fixtures/baseFixture';
 
 import { invalidData, dataGenerator } from '../../src/utils/data-generator';

@@ -1,8 +1,6 @@
 import { expect, Page } from '@playwright/test';
 import { test } from '../e2e_fixtures/baseFixture';
 import { dataGenerator, invalidData } from '../../src/utils/data-generator';
-import { EditorPage } from '../../src/pages/EditorPage';
-import { RegistrationPage } from '../../src/pages/RegisrationPage';
 
 const { uniqueUser, userEmail, userPassword } = dataGenerator();
 const { invalidUser, invalidEmail, invalidPassword } = invalidData;
@@ -28,21 +26,6 @@ test.describe('register functionality', { tag: ['@smoke-wb', '@registration-wb']
       await expect(page).toHaveURL('/');
       expect(response.status()).toBe(200);
       await expect(registrationPage.userProfileButton).toBeVisible();
-      const state = await context.storageState({ path: '.auth/storage-state.json' });
-    },
-  );
-
-  test.use({ storageState: '.auth/storage-state.json' });
-
-  test(
-    'WB-8, use existing storage state',
-    { tag: ['@smoke-wb', '@registration-wb'] },
-    async ({ page }) => {
-      const regPage = new RegistrationPage(page);
-
-      const editorPage = new EditorPage(page);
-      await page.goto('/');
-      await expect(editorPage.userProfileButton).toHaveText(uniqueUser);
     },
   );
 

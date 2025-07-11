@@ -1,4 +1,4 @@
-import { test as base, expect } from '@playwright/test';
+import { test as base, BrowserContext, expect } from '@playwright/test';
 import fs from 'fs';
 import { dataGenerator } from '../../src/utils/data-generator';
 import { RegistrationPage } from '../../src/pages/RegisrationPage';
@@ -37,21 +37,19 @@ export const test = base.extend<BaseFixtures>({
     const settingsPage = new SettingsPage(page);
     await use(settingsPage);
   },
+});
 
-  storageState: async ({ browser }, use) => {
-    const storageStatePath: string = '.auth/storage-state.json';
-    const isExist: boolean = fs.existsSync(storageStatePath);
-
-    if (!isExist) {
-      const page = await browser.newPage();
-      const { uniqueUser, userEmail, userPassword } = dataGenerator();
-      const registrationPage = new RegistrationPage(page);
-      await registrationPage.goToRegisterPage('https://demo.learnwebdriverio.com/register');
-      await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
-
-      await page.context().storageState({ path: storageStatePath as string });
-      await page.close();
-    }
-    await use(storageStatePath);
+export const testLogged = test.extend<BaseFixtures>({
+  context: async ({ browser }, use) => {
+    const raw: string = fs.readFileSync('.auth/storage-state.json', 'utf-8');
+    const storageState = JSON.parse(raw);
+    const context: BrowserContext = await browser.newContext({ storageState });
+    await use(context);
+    await context.close();
+  },
+  page: async ({ context }, use) => {
+    const page = await context.newPage();
+    await use(page);
+    await page.close();
   },
 });

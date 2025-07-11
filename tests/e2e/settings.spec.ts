@@ -1,7 +1,6 @@
 import { expect } from '@playwright/test';
 import { test } from '../e2e_fixtures/baseFixture';
 import { dataGenerator, userData } from '../../src/utils/data-generator';
-import { HomePage } from '../../src/pages/HomePage';
 
 const { uniqueUser, userEmail, userPassword } = dataGenerator();
 

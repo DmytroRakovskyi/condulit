@@ -1,23 +1,12 @@
 import { expect, Locator } from '@playwright/test';
-import { test } from '../e2e_fixtures/baseFixture';
-import { dataGenerator } from '../../src/utils/data-generator';
-
-let registeredUser: any;
-registeredUser = dataGenerator();
-
-const { uniqueUser, userEmail, userPassword } = registeredUser;
+import { testLogged as test } from '../e2e_fixtures/baseFixture';
 
 test.describe('home page', { tag: ['@smoke-wb', '@main'] }, () => {
-  test.beforeEach(async ({ page, registrationPage }) => {
-    await registrationPage.goToRegisterPage();
-    await registrationPage.userRegistration(uniqueUser, userEmail, userPassword);
-    await expect(page).toHaveURL('/');
-  });
-
   test(
     'WB-5, home page functionality',
     { tag: ['@smoke-wb', '@main'] },
     async ({ page, homePage }) => {
+      await homePage.goToHomePage();
       await homePage.myFeedButton.click();
       await expect(page).toHaveURL(`/my-feed`);
       await homePage.globalFeedButton.click();
@@ -27,7 +16,7 @@ test.describe('home page', { tag: ['@smoke-wb', '@main'] }, () => {
       const list: Locator = await homePage.getByList('demo');
       await expect(list).toBeVisible();
       await homePage.articlePreview.click();
-      await expect(list).toBeVisible();
+      await expect(tag).toBeVisible();
     },
   );
 });

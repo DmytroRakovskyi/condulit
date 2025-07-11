@@ -18,6 +18,11 @@ export class HomePage extends BasePage {
     this.articlePreview = page.locator('.article-preview');
     this.articleFavorite = page.locator('button[data-qa-type*="fav"]');
   }
+
+  async goToHomePage(url?: string) {
+    await this.page.goto('/');
+  }
+
   async getByTag(tagName: string) {
     return this.page.locator(`a[href="/tag/${tagName}"]`);
   }
